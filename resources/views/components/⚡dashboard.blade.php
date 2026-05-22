@@ -7,6 +7,11 @@ use Livewire\Component;
 
 new class extends Component {
     use WithToast;
+    protected $listeners = [
+        'task-created' => '$refresh',
+        'task-deleted' => '$refresh',
+        'task-status-updated' => '$refresh',
+    ];
     #[Validate('required')]
     public string $title = '';
 
@@ -26,7 +31,7 @@ new class extends Component {
 
         $this->reset();
         $this->dispatch('task-created');
-        $this->toast('Task criada com sucesso!', 'success');
+        $this->dispatchToast('Task criada com sucesso!');
     }
 };
 ?>
@@ -68,7 +73,7 @@ new class extends Component {
         </x-ui.modal>
     </div>
 
-    <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+    <div class="grid grid-cols-1 lg:grid-cols-3 gap-6 px-4">
 
         <!-- TODO -->
         @livewire('tasks.todo')

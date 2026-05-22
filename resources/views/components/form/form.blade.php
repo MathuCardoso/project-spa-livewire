@@ -1,7 +1,7 @@
 @props([
     'action' => '',
     'method' => 'POST',
-    'class' => null,
+    'class' => 'h-full',
 ])
 
 <form @class([$class])

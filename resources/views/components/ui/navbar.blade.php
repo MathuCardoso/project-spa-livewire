@@ -9,12 +9,12 @@
         <input type="text"
                placeholder="Search"
                class="input input-bordered w-24 md:w-auto" />
-        <div class="dropdown dropdown-end">
+        <div class="dropdown dropdown-end z-60">
             <div tabindex="0"
                  role="button"
                  class="btn btn-ghost btn-circle avatar avatar-placeholder">
                 <div class="w-10 rounded-full">
-                    <span>MC</span>
+                    <span>{{ Auth::user()->getInitials() }}</span>
                 </div>
             </div>
             <ul tabindex="-1"

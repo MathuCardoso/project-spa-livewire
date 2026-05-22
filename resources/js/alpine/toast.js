@@ -3,6 +3,7 @@ export default function toast(sessionMessage = "", sessionType = "success") {
         show: false,
         message: "",
         type: "success",
+        timer: null,
 
         init() {
             if (sessionMessage) {
@@ -10,22 +11,15 @@ export default function toast(sessionMessage = "", sessionType = "success") {
             }
         },
 
-        getColor(style = "border-") {
-            return this.type == "success"
-                ? `${style}valid`
-                : this.type == "warning"
-                  ? `${style}warning`
-                  : `${style}invalid`;
-        },
-
         dispatchToast(msg, type) {
+            clearTimeout(this.timer);
             this.message = msg;
             this.type = type;
             this.show = true;
 
-            setTimeout(() => {
+            this.timer = setTimeout(() => {
                 this.show = false;
-            }, 7000);
+            }, 5000);
         },
 
         handleEvent(event) {

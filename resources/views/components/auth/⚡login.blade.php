@@ -16,7 +16,7 @@ new class extends Component {
         $validatedFields = $this->validate();
 
         if (!Auth::attempt($validatedFields)) {
-            $this->toast('Credenciais Inválidas', 'error');
+            $this->dispatchToast('Credenciais Inválidas', 'error');
             return $this->reset();
         }
 

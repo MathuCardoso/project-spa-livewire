@@ -18,8 +18,7 @@
     </div>
     @foreach ($tasks as $t)
         <div
-             class="bg-base-200 border border-base-300 rounded-xl p-4 shadow-sm
-            hover:shadow-md hover:scale-105 transition-all duration-200 my-4">
+             class="group bg-base-200 border border-base-300 rounded-xl p-4 shadow-sm hover:shadow-md hover:scale-101 transition-all duration-200 my-4 relative">
             <div class="flex items-start justify-between">
                 <div>
                     <h3 class="font-semibold text-lg">
@@ -30,6 +29,10 @@
                         {{ $t->description }}
                     </p>
                 </div>
+            </div>
+            <div class="opacity-0 group-hover:opacity-100 absolute right-3 top-1 gap-2 font-bold transition">
+                @livewire('tasks.change-status', ['taskId' => $t->id, 'currentStatus' => $t->status], 'status-' . $t->id)
+                @livewire('tasks.delete-task', ['taskId' => $t->id], 'delete-' . $t->id)
             </div>
         </div>
     @endforeach

@@ -7,7 +7,11 @@ use Livewire\Component;
 
 new class extends Component {
     use WithToast;
-    #[Validate('required|max:30|alpha_dash')]
+    #[Validate('required|max:20|alpha_dash')]
+    public $first_name = '';
+    #[Validate('required|max:20|alpha_dash')]
+    public $last_name = '';
+    #[Validate('required|max:30|alpha_dash|unique:users')]
     public $username = '';
     #[Validate('required|max:255|email|unique:users')]
     public $email = '';
@@ -20,7 +24,7 @@ new class extends Component {
 
         User::create($validatedFields);
 
-        $this->toast('Conta criada com sucesso!', 'success');
+        $this->flashToast('Conta criada com sucesso!');
 
         return $this->redirect('/login', navigate: true);
     }
@@ -29,30 +33,47 @@ new class extends Component {
 
 <x-form.form method="POST"
              wire:submit="save"
-             class="w-full max-w-120 rounded-2xl p-8 shadow-xl border border-base-200">
+             class="max-w-160 max-h-5/5 rounded-2xl p-8 py-3 shadow-xl border border-base-200">
 
-    <h2 class="text-2xl font-bold text-center mb-6">Criar Conta</h2>
+    <h2 class="text-2xl font-bold text-center my-3">Criar Conta</h2>
 
-    <x-form.input wire:model="username"
-                  name="username"
+    <div class="flex gap-4">
+        <div class="flex-1">
+            <x-form.input name="first_name"
+                          label="Primeiro Nome"
+                          placeholder="Ronaldinho"
+                          type="text" />
+            <x-form.error-message name="first_name" />
+        </div>
+        <div class="flex-1">
+            <x-form.input name="last_name"
+                          label="Sobrenome"
+                          placeholder="Gaúcho"
+                          type="text" />
+            <x-form.error-message name="last_name" />
+        </div>
+    </div>
+
+    <x-form.input name="username"
                   label="Nome de Usuário"
                   placeholder="Usuario123"
-                  type="text" />
+                  type="text"
+                  autocomplete="username" />
     <x-form.error-message name="username" />
 
-    <x-form.input wire:model="email"
-                  name="email"
+    <x-form.input name="email"
                   label="Email"
                   placeholder="seu@email.com"
-                  type="email" />
+                  type="email"
+                  autocomplete="email" />
     <x-form.error-message name="email" />
 
 
-    <x-form.input wire:model="password"
-                  name="password"
+    <x-form.input name="password"
                   label="Senha"
                   placeholder="••••••••"
-                  type="password" />
+                  type="password"
+                  autocomplete="new-password" />
     <x-form.error-message name="password" />
 
     <div class="mt-2">

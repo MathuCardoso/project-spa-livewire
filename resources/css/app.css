@@ -28,7 +28,7 @@ body {
 .container {
     height: 100%;
     padding-inline: 20vw;
-    padding-block: 5vh;
+    padding-top: 5vh;
 }
 
 .center {
